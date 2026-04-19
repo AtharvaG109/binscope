@@ -1,6 +1,21 @@
 # binscope
 
+[![CI](https://github.com/AtharvaG109/binscope/actions/workflows/ci.yml/badge.svg)](https://github.com/AtharvaG109/binscope/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/AtharvaG109/binscope)](https://github.com/AtharvaG109/binscope/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+
 `binscope` is a Rust CLI for triaging PE, ELF, and Mach-O binaries, spotting packer signals, carving strings, and generating YARA rule skeletons that analysts can refine further.
+
+## Why binscope
+
+Reverse engineers often need a quick first-pass tool that answers a few high-value questions without opening a full disassembler:
+
+- What format is this binary and how suspicious does it look?
+- Which sections look packed or encrypted?
+- Which imports and carved strings point to injection, networking, registry abuse, or crypto usage?
+- Can I turn the most interesting traits into a YARA starting point quickly?
+
+`binscope` is built for that fast triage loop.
 
 ## Features
 
@@ -18,8 +33,17 @@
 
 ## Install
 
+From this repository:
+
 ```bash
 cargo install --path .
+```
+
+Or build locally:
+
+```bash
+cargo build --release
+./target/release/binscope --help
 ```
 
 ## Usage
@@ -31,6 +55,20 @@ binscope analyze /path/to/binary --yara
 binscope analyze /path/to/binary --strings-interesting-only
 binscope summarize /path/to/folder
 binscope summarize /path/to/folder --json
+```
+
+## Example output
+
+```text
+binscope sample_pe.exe (PE)
+Risk score:  68/100  Size: 65536 bytes  SHA256: 1d1f...
+Machine: X86_64  Entry point: 0x14b0  Sections: 4  Imports: 52  Strings: 14 interesting / 173 total
+Import hash: 2f3f...
+
+Findings
+  [critical] Suspicious API combo: injector: Classic remote-thread injection chain
+  [high] High-entropy section .packed: Entropy 7.91 suggests compression, encryption, or packed payloads
+  [medium] Suspicious import libraries: kernel32.dll, ntdll.dll
 ```
 
 ## Local validation
@@ -50,20 +88,6 @@ Clean sample binaries live in [`testdata/fixtures`](./testdata/fixtures):
 - `sample_macho`
 
 They are intentionally benign fixtures used for parser and reporting coverage in CI.
-
-## Example output
-
-```text
-binscope sample_pe.exe (PE)
-Risk score:  68/100  Size: 65536 bytes  SHA256: 1d1f...
-Machine: X86_64  Entry point: 0x14b0  Sections: 4  Imports: 52  Strings: 14 interesting / 173 total
-Import hash: 2f3f...
-
-Findings
-  [critical] Suspicious API combo: injector: Classic remote-thread injection chain
-  [high] High-entropy section .packed: Entropy 7.91 suggests compression, encryption, or packed payloads
-  [medium] Suspicious import libraries: kernel32.dll, ntdll.dll
-```
 
 ## Test data
 
@@ -102,26 +126,27 @@ binscope analyze testdata/fixtures/sample_macho --strings-interesting-only
 binscope summarize testdata/fixtures --json
 ```
 
-## Publishing on GitHub
+## GitHub automation
 
-Recommended publish flow:
+This repository includes:
 
-```bash
-git init
-git add .
-git commit -m "Initial binscope release"
-gh auth login
-gh repo create binscope --public --source=. --remote=origin --push
-```
+- CI on pushes and pull requests
+- issue templates for bugs and feature requests
+- a pull request template
+- Dependabot for Cargo and GitHub Actions updates
+- automated release builds for tagged versions
 
-If you already created the repository on GitHub, connect it like this:
+## Roadmap ideas
 
-```bash
-git remote add origin git@github.com:<your-user>/binscope.git
-git push -u origin main
-```
+- richer PE resource decoding
+- recursive archive scanning
+- delayed import analysis
+- configurable risk profiles
+- batch export formats beyond JSON
 
-This repo includes a GitHub Actions workflow at [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) so pushes and pull requests automatically run formatting, build, and tests.
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the development workflow and [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
 ## Notes
 

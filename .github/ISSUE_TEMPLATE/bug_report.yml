@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a problem with parsing, reporting, workflows, or packaging.
+title: "[bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include command lines, sample type, and expected vs actual behavior.
+      placeholder: |
+        1. Run `binscope analyze ...`
+        2. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: binscope version or commit hash
+      placeholder: 0.1.0
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra context
+      description: Add logs, screenshots, or sample metadata if safe to share.
