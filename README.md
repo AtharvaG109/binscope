@@ -30,6 +30,7 @@ Reverse engineers often need a quick first-pass tool that answers a few high-val
 - Emits a color terminal report and machine-friendly JSON
 - Generates a YARA rule skeleton from recovered strings, entropy, and import fingerprints
 - Summarizes whole directories with an aggregate risk overview
+- Recursively scans `zip`, `jar`, `tar`, `tgz`, and `tar.gz` containers during `summarize`
 
 ## Install
 
@@ -55,6 +56,8 @@ binscope analyze /path/to/binary --yara
 binscope analyze /path/to/binary --strings-interesting-only
 binscope summarize /path/to/folder
 binscope summarize /path/to/folder --json
+binscope summarize /path/to/archive.zip --json
+binscope summarize /path/to/archive.tar.gz
 ```
 
 ## Example output
@@ -126,6 +129,13 @@ binscope analyze testdata/fixtures/sample_macho --strings-interesting-only
 binscope summarize testdata/fixtures --json
 ```
 
+To recurse into archives:
+
+```bash
+binscope summarize suspicious_bundle.zip --json
+binscope summarize dropper_samples.tar.gz
+```
+
 ## GitHub automation
 
 This repository includes:
@@ -143,7 +153,7 @@ Repository examples and sample output live in [docs/README.md](./docs/README.md)
 ## Roadmap ideas
 
 - richer PE resource decoding
-- recursive archive scanning
+- nested archive policy controls and size thresholds
 - delayed import analysis
 - configurable risk profiles
 - batch export formats beyond JSON

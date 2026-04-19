@@ -170,6 +170,8 @@ pub struct SummaryReport {
     pub scanned_files: usize,
     pub analyzed_files: usize,
     pub skipped_files: usize,
+    pub archives_scanned: usize,
+    pub archive_entries_scanned: usize,
     pub errors: Vec<FileError>,
     pub by_format: Vec<FormatCount>,
     pub highest_risk: Vec<BinarySummary>,

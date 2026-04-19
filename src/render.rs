@@ -190,10 +190,12 @@ pub fn render_summary(summary: &SummaryReport) -> String {
         style(&summary.root, "1")
     ));
     out.push(format!(
-        "Scanned: {}  Analyzed: {}  Skipped: {}  Errors: {}",
+        "Scanned: {}  Analyzed: {}  Skipped: {}  Archives: {}  Archive entries: {}  Errors: {}",
         summary.scanned_files,
         summary.analyzed_files,
         summary.skipped_files,
+        summary.archives_scanned,
+        summary.archive_entries_scanned,
         summary.errors.len()
     ));
 

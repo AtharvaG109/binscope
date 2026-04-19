@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-04-19
+
+### Added
+
+- recursive archive scanning for `zip`, `jar`, `tar`, `tgz`, and `tar.gz` during `summarize`
+- archive summary counters for scanned containers and archive entries
+- integration coverage for `zip` and `tar.gz` archive traversal
+
 ## [0.1.2] - 2026-04-19
 
 GitHub automation maintenance release.

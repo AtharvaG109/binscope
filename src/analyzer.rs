@@ -1,9 +1,11 @@
+use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::ffi::OsStr;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use anyhow::{Context, Result, bail};
+use miniz_oxide::inflate::decompress_to_vec_with_limit;
 use object::endian::LittleEndian as LE;
 use object::read::elf::{FileHeader as ElfFileHeader, ProgramHeader as ElfProgramHeader};
 use object::read::macho::MachHeader;
@@ -26,6 +28,9 @@ use crate::strings::carve_strings;
 const ENTROPY_THRESHOLD: f64 = 7.2;
 const BLOCK_SIZE: usize = 256;
 const SUMMARY_TOP_N: usize = 10;
+const MAX_ARCHIVE_DEPTH: usize = 3;
+const MAX_ARCHIVE_ENTRY_BYTES: usize = 16 * 1024 * 1024;
+const MAX_ARCHIVE_ENTRIES_PER_ARCHIVE: usize = 2048;
 
 #[derive(Debug, Clone, Copy)]
 pub struct AnalyzeOptions {
@@ -33,26 +38,71 @@ pub struct AnalyzeOptions {
     pub strings_interesting_only: bool,
 }
 
+#[derive(Debug)]
+struct CandidateBinary {
+    logical_path: String,
+    file_name: String,
+    bytes: Vec<u8>,
+}
+
+#[derive(Debug, Default)]
+struct SummaryCollector {
+    candidates: Vec<CandidateBinary>,
+    errors: Vec<FileError>,
+    skipped_files: usize,
+    archives_scanned: usize,
+    archive_entries_scanned: usize,
+}
+
+#[derive(Debug)]
+struct ArchiveEntry {
+    name: String,
+    bytes: Vec<u8>,
+}
+
+#[derive(Debug, Clone, Copy)]
+enum ArchiveKind {
+    Zip,
+    Tar,
+    Gzip,
+}
+
 pub fn analyze_path(path: &Path, options: &AnalyzeOptions) -> Result<BinaryReport> {
     let bytes =
         fs::read(path).with_context(|| format!("failed to read binary at {}", path.display()))?;
-    let sha256 = sha256_hex(&bytes);
     let file_name = path
         .file_name()
         .map(|value| value.to_string_lossy().to_string())
         .unwrap_or_else(|| path.display().to_string());
+    analyze_bytes(&path.display().to_string(), &file_name, &bytes, options)
+}
 
+fn analyze_bytes(
+    logical_path: &str,
+    file_name: &str,
+    bytes: &[u8],
+    options: &AnalyzeOptions,
+) -> Result<BinaryReport> {
+    let sha256 = sha256_hex(bytes);
     let file = ObjectFile::parse(&*bytes)?;
     let mut report = match file {
-        ObjectFile::Pe32(file) => analyze_pe(path, &file_name, &bytes, &sha256, &file, options)?,
-        ObjectFile::Pe64(file) => analyze_pe(path, &file_name, &bytes, &sha256, &file, options)?,
-        ObjectFile::Elf32(file) => analyze_elf(path, &file_name, &bytes, &sha256, &file, options)?,
-        ObjectFile::Elf64(file) => analyze_elf(path, &file_name, &bytes, &sha256, &file, options)?,
+        ObjectFile::Pe32(file) => {
+            analyze_pe(logical_path, file_name, bytes, &sha256, &file, options)?
+        }
+        ObjectFile::Pe64(file) => {
+            analyze_pe(logical_path, file_name, bytes, &sha256, &file, options)?
+        }
+        ObjectFile::Elf32(file) => {
+            analyze_elf(logical_path, file_name, bytes, &sha256, &file, options)?
+        }
+        ObjectFile::Elf64(file) => {
+            analyze_elf(logical_path, file_name, bytes, &sha256, &file, options)?
+        }
         ObjectFile::MachO32(file) => {
-            analyze_macho(path, &file_name, &bytes, &sha256, &file, options)?
+            analyze_macho(logical_path, file_name, bytes, &sha256, &file, options)?
         }
         ObjectFile::MachO64(file) => {
-            analyze_macho(path, &file_name, &bytes, &sha256, &file, options)?
+            analyze_macho(logical_path, file_name, bytes, &sha256, &file, options)?
         }
         _ => bail!("unsupported binary format: only PE, ELF, and Mach-O are currently supported"),
     };
@@ -65,15 +115,19 @@ pub fn analyze_path(path: &Path, options: &AnalyzeOptions) -> Result<BinaryRepor
 }
 
 pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryReport> {
-    let mut files = Vec::new();
-    collect_candidate_files(path, &mut files)?;
+    let mut collector = SummaryCollector::default();
+    collect_candidate_inputs(path, &mut collector, 0)?;
 
     let mut reports = Vec::new();
-    let mut errors = Vec::new();
     let mut by_format = BTreeMap::<&'static str, (BinaryFormat, usize)>::new();
 
-    for file in &files {
-        match analyze_path(file, options) {
+    for candidate in &collector.candidates {
+        match analyze_bytes(
+            &candidate.logical_path,
+            &candidate.file_name,
+            &candidate.bytes,
+            options,
+        ) {
             Ok(report) => {
                 let entry = by_format
                     .entry(format_key(report.format))
@@ -93,8 +147,8 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
                 });
             }
             Err(error) => {
-                errors.push(FileError {
-                    path: file.display().to_string(),
+                collector.errors.push(FileError {
+                    path: candidate.logical_path.clone(),
                     message: error.to_string(),
                 });
             }
@@ -114,14 +168,16 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
         .cloned()
         .collect::<Vec<_>>();
     let analyzed_files = reports.len();
-    let skipped_files = files.len().saturating_sub(analyzed_files + errors.len());
+    let scanned_files = collector.candidates.len();
 
     Ok(SummaryReport {
         root: path.display().to_string(),
-        scanned_files: files.len(),
+        scanned_files,
         analyzed_files,
-        skipped_files,
-        errors,
+        skipped_files: collector.skipped_files,
+        archives_scanned: collector.archives_scanned,
+        archive_entries_scanned: collector.archive_entries_scanned,
+        errors: collector.errors,
         by_format: by_format
             .into_values()
             .map(|(format, count)| FormatCount { format, count })
@@ -132,7 +188,7 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
 }
 
 fn analyze_pe<'data, Pe, R>(
-    path: &Path,
+    logical_path: &str,
     file_name: &str,
     bytes: &[u8],
     sha256: &str,
@@ -187,7 +243,7 @@ where
     let machine = format!("{:?}", file.architecture());
 
     Ok(BinaryReport {
-        path: path.display().to_string(),
+        path: logical_path.to_string(),
         file_name: file_name.to_string(),
         format: BinaryFormat::Pe,
         size: bytes.len() as u64,
@@ -254,7 +310,7 @@ where
 }
 
 fn analyze_elf<'data, Elf, R>(
-    path: &Path,
+    logical_path: &str,
     file_name: &str,
     bytes: &[u8],
     sha256: &str,
@@ -309,7 +365,7 @@ where
         .unwrap_or_else(|| "none".to_string());
 
     Ok(BinaryReport {
-        path: path.display().to_string(),
+        path: logical_path.to_string(),
         file_name: file_name.to_string(),
         format: BinaryFormat::Elf,
         size: bytes.len() as u64,
@@ -380,7 +436,7 @@ where
 }
 
 fn analyze_macho<'data, Mach, R>(
-    path: &Path,
+    logical_path: &str,
     file_name: &str,
     bytes: &[u8],
     sha256: &str,
@@ -435,7 +491,7 @@ where
         .unwrap_or_else(|| "none".to_string());
 
     Ok(BinaryReport {
-        path: path.display().to_string(),
+        path: logical_path.to_string(),
         file_name: file_name.to_string(),
         format: BinaryFormat::MachO,
         size: bytes.len() as u64,
@@ -497,10 +553,26 @@ where
     })
 }
 
-fn collect_candidate_files(path: &Path, out: &mut Vec<PathBuf>) -> Result<()> {
+fn collect_candidate_inputs(
+    path: &Path,
+    collector: &mut SummaryCollector,
+    depth: usize,
+) -> Result<()> {
     if path.is_file() {
-        if is_supported_candidate(path) {
-            out.push(path.to_path_buf());
+        match fs::read(path) {
+            Ok(bytes) => collect_from_bytes(
+                &path.display().to_string(),
+                &display_name(path),
+                Cow::Owned(bytes),
+                collector,
+                depth,
+            ),
+            Err(error) => {
+                collector.errors.push(FileError {
+                    path: path.display().to_string(),
+                    message: format!("failed to read file: {error}"),
+                });
+            }
         }
         return Ok(());
     }
@@ -517,26 +589,374 @@ fn collect_candidate_files(path: &Path, out: &mut Vec<PathBuf>) -> Result<()> {
                 continue;
             }
 
-            collect_candidate_files(&child, out)?;
+            collect_candidate_inputs(&child, collector, depth)?;
         }
     }
 
     Ok(())
 }
 
-fn is_supported_candidate(path: &Path) -> bool {
-    match fs::read(path) {
-        Ok(bytes) => matches!(
-            FileKind::parse(&*bytes),
-            Ok(FileKind::Pe32)
-                | Ok(FileKind::Pe64)
-                | Ok(FileKind::Elf32)
-                | Ok(FileKind::Elf64)
-                | Ok(FileKind::MachO32)
-                | Ok(FileKind::MachO64)
-        ),
-        Err(_) => false,
+fn collect_from_bytes<'a>(
+    logical_path: &str,
+    file_name: &str,
+    bytes: Cow<'a, [u8]>,
+    collector: &mut SummaryCollector,
+    depth: usize,
+) {
+    if is_supported_candidate_bytes(&bytes) {
+        collector.candidates.push(CandidateBinary {
+            logical_path: logical_path.to_string(),
+            file_name: file_name.to_string(),
+            bytes: bytes.into_owned(),
+        });
+        return;
     }
+
+    if depth >= MAX_ARCHIVE_DEPTH {
+        collector.skipped_files += 1;
+        return;
+    }
+
+    match detect_archive_kind(file_name, &bytes) {
+        Some(ArchiveKind::Zip) => {
+            collector.archives_scanned += 1;
+            match extract_zip_entries(&bytes) {
+                Ok(entries) => recurse_archive_entries(logical_path, entries, collector, depth + 1),
+                Err(error) => collector.errors.push(FileError {
+                    path: logical_path.to_string(),
+                    message: format!("failed to parse zip archive: {error}"),
+                }),
+            }
+        }
+        Some(ArchiveKind::Tar) => {
+            collector.archives_scanned += 1;
+            match extract_tar_entries(&bytes) {
+                Ok(entries) => recurse_archive_entries(logical_path, entries, collector, depth + 1),
+                Err(error) => collector.errors.push(FileError {
+                    path: logical_path.to_string(),
+                    message: format!("failed to parse tar archive: {error}"),
+                }),
+            }
+        }
+        Some(ArchiveKind::Gzip) => {
+            collector.archives_scanned += 1;
+            match extract_gzip_payload(logical_path, file_name, &bytes) {
+                Ok((inner_name, payload)) => {
+                    let nested_path = format!("{logical_path}!{inner_name}");
+                    collect_from_bytes(
+                        &nested_path,
+                        &inner_name,
+                        Cow::Owned(payload),
+                        collector,
+                        depth + 1,
+                    );
+                }
+                Err(error) => collector.errors.push(FileError {
+                    path: logical_path.to_string(),
+                    message: format!("failed to decompress gzip archive: {error}"),
+                }),
+            }
+        }
+        None => {
+            collector.skipped_files += 1;
+        }
+    }
+}
+
+fn recurse_archive_entries(
+    logical_path: &str,
+    entries: Vec<ArchiveEntry>,
+    collector: &mut SummaryCollector,
+    depth: usize,
+) {
+    for entry in entries {
+        collector.archive_entries_scanned += 1;
+        let nested_path = format!("{logical_path}!{}", entry.name);
+        collect_from_bytes(
+            &nested_path,
+            &display_name(Path::new(&entry.name)),
+            Cow::Owned(entry.bytes),
+            collector,
+            depth,
+        );
+    }
+}
+
+fn is_supported_candidate_bytes(bytes: &[u8]) -> bool {
+    matches!(
+        FileKind::parse(bytes),
+        Ok(FileKind::Pe32)
+            | Ok(FileKind::Pe64)
+            | Ok(FileKind::Elf32)
+            | Ok(FileKind::Elf64)
+            | Ok(FileKind::MachO32)
+            | Ok(FileKind::MachO64)
+    )
+}
+
+fn detect_archive_kind(file_name: &str, bytes: &[u8]) -> Option<ArchiveKind> {
+    let lower = file_name.to_ascii_lowercase();
+
+    if bytes.starts_with(b"PK\x03\x04")
+        || bytes.starts_with(b"PK\x05\x06")
+        || lower.ends_with(".zip")
+        || lower.ends_with(".jar")
+    {
+        return Some(ArchiveKind::Zip);
+    }
+
+    if is_tar_archive(bytes) || lower.ends_with(".tar") {
+        return Some(ArchiveKind::Tar);
+    }
+
+    if bytes.starts_with(&[0x1f, 0x8b])
+        || lower.ends_with(".tgz")
+        || lower.ends_with(".tar.gz")
+        || lower.ends_with(".gz")
+    {
+        return Some(ArchiveKind::Gzip);
+    }
+
+    None
+}
+
+fn is_tar_archive(bytes: &[u8]) -> bool {
+    bytes.len() > 262 && &bytes[257..262] == b"ustar"
+}
+
+fn extract_zip_entries(bytes: &[u8]) -> Result<Vec<ArchiveEntry>> {
+    let eocd = find_zip_eocd(bytes).context("missing end of central directory")?;
+    let entry_count = le_u16(bytes, eocd + 10)? as usize;
+    let central_dir_offset = le_u32(bytes, eocd + 16)? as usize;
+    let mut offset = central_dir_offset;
+    let mut entries = Vec::new();
+
+    for _ in 0..entry_count.min(MAX_ARCHIVE_ENTRIES_PER_ARCHIVE) {
+        let signature = le_u32(bytes, offset)?;
+        if signature != 0x0201_4b50 {
+            bail!("invalid central directory entry signature");
+        }
+
+        let flags = le_u16(bytes, offset + 8)?;
+        let method = le_u16(bytes, offset + 10)?;
+        let compressed_size = le_u32(bytes, offset + 20)? as usize;
+        let uncompressed_size = le_u32(bytes, offset + 24)? as usize;
+        let name_len = le_u16(bytes, offset + 28)? as usize;
+        let extra_len = le_u16(bytes, offset + 30)? as usize;
+        let comment_len = le_u16(bytes, offset + 32)? as usize;
+        let local_header_offset = le_u32(bytes, offset + 42)? as usize;
+        let name = string_field(bytes, offset + 46, name_len)?;
+
+        offset = offset
+            .checked_add(46 + name_len + extra_len + comment_len)
+            .context("zip central directory overflow")?;
+
+        if name.ends_with('/') || flags & 0x0001 != 0 {
+            continue;
+        }
+
+        if uncompressed_size > MAX_ARCHIVE_ENTRY_BYTES {
+            continue;
+        }
+
+        let local_sig = le_u32(bytes, local_header_offset)?;
+        if local_sig != 0x0403_4b50 {
+            bail!("invalid local file header signature");
+        }
+
+        let local_name_len = le_u16(bytes, local_header_offset + 26)? as usize;
+        let local_extra_len = le_u16(bytes, local_header_offset + 28)? as usize;
+        let data_start = local_header_offset
+            .checked_add(30 + local_name_len + local_extra_len)
+            .context("zip local header overflow")?;
+        let data_end = data_start
+            .checked_add(compressed_size)
+            .context("zip entry overflow")?;
+        let compressed = bytes
+            .get(data_start..data_end)
+            .context("zip entry outside archive bounds")?;
+
+        let data = match method {
+            0 => compressed.to_vec(),
+            8 => decompress_to_vec_with_limit(compressed, MAX_ARCHIVE_ENTRY_BYTES)
+                .map_err(|error| anyhow::anyhow!(error.to_string()))?,
+            _ => continue,
+        };
+
+        entries.push(ArchiveEntry { name, bytes: data });
+    }
+
+    Ok(entries)
+}
+
+fn find_zip_eocd(bytes: &[u8]) -> Option<usize> {
+    if bytes.len() < 22 {
+        return None;
+    }
+
+    let min_offset = bytes.len().saturating_sub(22 + 65_535);
+    (min_offset..=bytes.len() - 4)
+        .rev()
+        .find(|offset| bytes.get(*offset..*offset + 4) == Some(&b"PK\x05\x06"[..]))
+}
+
+fn extract_tar_entries(bytes: &[u8]) -> Result<Vec<ArchiveEntry>> {
+    let mut entries = Vec::new();
+    let mut offset = 0usize;
+
+    while offset + 512 <= bytes.len() && entries.len() < MAX_ARCHIVE_ENTRIES_PER_ARCHIVE {
+        let header = &bytes[offset..offset + 512];
+        if header.iter().all(|byte| *byte == 0) {
+            break;
+        }
+
+        let name = tar_name(header);
+        let size = parse_tar_size(&header[124..136])?;
+        let typeflag = header[156];
+        let data_start = offset + 512;
+        let data_end = data_start.checked_add(size).context("tar entry overflow")?;
+        let data = bytes
+            .get(data_start..data_end)
+            .context("tar entry outside archive bounds")?;
+
+        if matches!(typeflag, 0 | b'0') && !name.is_empty() && size <= MAX_ARCHIVE_ENTRY_BYTES {
+            entries.push(ArchiveEntry {
+                name,
+                bytes: data.to_vec(),
+            });
+        }
+
+        offset = data_end
+            .checked_add((512 - (size % 512)) % 512)
+            .context("tar alignment overflow")?;
+    }
+
+    Ok(entries)
+}
+
+fn tar_name(header: &[u8]) -> String {
+    let name = trim_c_string(&header[..100]);
+    let prefix = trim_c_string(&header[345..500]);
+    if prefix.is_empty() {
+        name
+    } else if name.is_empty() {
+        prefix
+    } else {
+        format!("{prefix}/{name}")
+    }
+}
+
+fn parse_tar_size(bytes: &[u8]) -> Result<usize> {
+    let trimmed = trim_c_string(bytes).trim().to_string();
+    if trimmed.is_empty() {
+        return Ok(0);
+    }
+    usize::from_str_radix(trimmed.trim(), 8).context("invalid tar size field")
+}
+
+fn extract_gzip_payload(
+    logical_path: &str,
+    file_name: &str,
+    bytes: &[u8],
+) -> Result<(String, Vec<u8>)> {
+    if bytes.len() < 18 || !bytes.starts_with(&[0x1f, 0x8b]) {
+        bail!("invalid gzip header");
+    }
+
+    let flags = bytes[3];
+    let mut offset = 10usize;
+    let mut embedded_name = None;
+
+    if flags & 0x04 != 0 {
+        let xlen = le_u16(bytes, offset)? as usize;
+        offset = offset
+            .checked_add(2 + xlen)
+            .context("gzip extra field overflow")?;
+    }
+    if flags & 0x08 != 0 {
+        let end = find_c_string_end(bytes, offset).context("unterminated gzip filename")?;
+        embedded_name = Some(String::from_utf8_lossy(&bytes[offset..end]).to_string());
+        offset = end + 1;
+    }
+    if flags & 0x10 != 0 {
+        let end = find_c_string_end(bytes, offset).context("unterminated gzip comment")?;
+        offset = end + 1;
+    }
+    if flags & 0x02 != 0 {
+        offset = offset.checked_add(2).context("gzip header crc overflow")?;
+    }
+
+    let compressed_end = bytes
+        .len()
+        .checked_sub(8)
+        .context("truncated gzip trailer")?;
+    let compressed = bytes
+        .get(offset..compressed_end)
+        .context("gzip payload outside bounds")?;
+    let payload = decompress_to_vec_with_limit(compressed, MAX_ARCHIVE_ENTRY_BYTES)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?;
+
+    let inner_name = embedded_name.unwrap_or_else(|| gzip_inner_name(logical_path, file_name));
+    Ok((inner_name, payload))
+}
+
+fn gzip_inner_name(logical_path: &str, file_name: &str) -> String {
+    let lower = file_name.to_ascii_lowercase();
+    if lower.ends_with(".tar.gz") {
+        file_name[..file_name.len() - 3].to_string()
+    } else if lower.ends_with(".tgz") {
+        format!("{}.tar", &file_name[..file_name.len() - 4])
+    } else if lower.ends_with(".gz") {
+        file_name[..file_name.len() - 3].to_string()
+    } else {
+        Path::new(logical_path)
+            .file_name()
+            .map(|value| value.to_string_lossy().to_string())
+            .unwrap_or_else(|| "decompressed".to_string())
+    }
+}
+
+fn display_name(path: &Path) -> String {
+    path.file_name()
+        .map(|value| value.to_string_lossy().to_string())
+        .unwrap_or_else(|| path.display().to_string())
+}
+
+fn le_u16(bytes: &[u8], offset: usize) -> Result<u16> {
+    let slice = bytes
+        .get(offset..offset + 2)
+        .context("unexpected end of data while reading u16")?;
+    Ok(u16::from_le_bytes([slice[0], slice[1]]))
+}
+
+fn le_u32(bytes: &[u8], offset: usize) -> Result<u32> {
+    let slice = bytes
+        .get(offset..offset + 4)
+        .context("unexpected end of data while reading u32")?;
+    Ok(u32::from_le_bytes([slice[0], slice[1], slice[2], slice[3]]))
+}
+
+fn string_field(bytes: &[u8], offset: usize, len: usize) -> Result<String> {
+    let slice = bytes
+        .get(offset..offset + len)
+        .context("unexpected end of data while reading string field")?;
+    Ok(String::from_utf8_lossy(slice).to_string())
+}
+
+fn trim_c_string(bytes: &[u8]) -> String {
+    let end = bytes
+        .iter()
+        .position(|byte| *byte == 0)
+        .unwrap_or(bytes.len());
+    String::from_utf8_lossy(&bytes[..end]).trim().to_string()
+}
+
+fn find_c_string_end(bytes: &[u8], offset: usize) -> Option<usize> {
+    bytes
+        .get(offset..)?
+        .iter()
+        .position(|byte| *byte == 0)
+        .map(|index| offset + index)
 }
 
 fn collect_sections<'data, O>(file: &O) -> Result<Vec<SectionInfo>>
