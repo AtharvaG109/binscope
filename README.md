@@ -148,6 +148,10 @@ This repository includes:
 
 Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the development workflow and [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
+## Security
+
+If you believe you have found a security issue in `binscope`, please do not open a public GitHub issue first. Follow the guidance in [SECURITY.md](./SECURITY.md).
+
 ## Notes
 
 - `binscope` is a static triage tool. It does not execute binaries.
