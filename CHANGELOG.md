@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-04-19
+
+GitHub automation maintenance release.
+
+### Changed
+
+- updated `actions/checkout` to `v6` in CI and release workflows
+- updated `softprops/action-gh-release` to `v3`
+- reduced GitHub Actions Node.js 20 deprecation warnings for future runs
+
 ## [0.1.1] - 2026-04-19
 
 Documentation and repository governance release.
