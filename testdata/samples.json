@@ -1,0 +1,20 @@
+[
+  {
+    "family": "WannaCry",
+    "platform": "pe",
+    "sha256": "ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5c5d1dc5d8bf4ef",
+    "source": "https://www.virustotal.com/gui/file/ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5c5d1dc5d8bf4ef"
+  },
+  {
+    "family": "Mirai",
+    "platform": "elf",
+    "sha256": "0f7f8f4b2328c357f4b6c2670d6f25f2f5f6ed74f8502b2ca4db6d4d8124d5af",
+    "source": "https://www.virustotal.com/gui/file/0f7f8f4b2328c357f4b6c2670d6f25f2f5f6ed74f8502b2ca4db6d4d8124d5af"
+  },
+  {
+    "family": "UPX packed sample",
+    "platform": "elf",
+    "sha256": "replace-with-locally-curated-packed-sample-hash",
+    "source": "https://upx.github.io/"
+  }
+]
