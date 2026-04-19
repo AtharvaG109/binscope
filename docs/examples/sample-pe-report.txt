@@ -1,0 +1,61 @@
+[1;36mbinscope[0m [1msample_pe.exe[0m (PE)
+Risk score: [93m 44/100[0m  Size: 65536 bytes  SHA256: 75f12ea2f30d9c0d872dade345f30f562e6d93847b6a509ba53beec6d0b2c346
+Machine: I386  Entry point: 0x4025e7  Sections: 3  Imports: 79  Strings: 3 interesting / 333 total
+Import hash: 614f46e68614ece6478b1b8e7a0502c8
+
+[1mFindings[0m
+  [[93mmedium[0m] Suspicious API combo: dynamic_resolution: Runtime API resolution often used for evasion
+  [[93mmedium[0m] Protection disabled: ASLR: IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE
+  [[93mmedium[0m] Protection disabled: NX: DEP / NX compatibility bit
+  [[93mmedium[0m] Protection disabled: CFG: Control Flow Guard
+  [[93mmedium[0m] Suspicious import libraries: kernel32.dll
+  [[92mlow[0m] PE Rich header present: Compiler/toolchain fingerprint data is available
+
+[1mSections[0m
+  .text            entropy 6.62 [34m####################....[0m
+  .rdata           entropy 5.47 [34m################........[0m
+  .data            entropy 2.25 [34m#######.................[0m
+
+[1mImports[0m
+  kernel32.dll             79 symbols
+  suspicious libraries: kernel32.dll
+
+[1mSuspicious Imports[0m
+  [[93mmedium[0m] dynamic_resolution -> kernel32.dll!loadlibrarya, kernel32.dll!getprocaddress
+
+[1mProtections[0m
+  ASLR                 [1;31mdisabled[0m IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE
+  HighEntropyVA        [1;31mdisabled[0m 64-bit high entropy ASLR
+  NX                   [1;31mdisabled[0m DEP / NX compatibility bit
+  CFG                  [1;31mdisabled[0m Control Flow Guard
+  NoSEH                [1;31mdisabled[0m Structured exception handling disabled
+
+[1mRich Header[0m
+  offset 0x80  length 80  xor_key 0x3990321d  fingerprint 133c96f27e3012ada3ed88b34c4694c59e24a1b24884cfa03ecfcfb81c7af0f3
+  build 50727 product 123  count 3      product_123
+  build 0     product 1    count 91     import
+  build 20413 product 150  count 4      product_150
+  build 21022 product 132  count 36     product_132
+  build 21022 product 149  count 18     product_149
+  build 21022 product 131  count 112    product_131
+  build 21022 product 145  count 1      product_145
+
+[1mResources[0m
+  none
+
+[1mPacker Hits[0m
+  none
+
+[1mInteresting Strings[0m
+  [[33mgeneric[0m] 0x4d !This program cannot be run in DOS mode.
+  [[33mgeneric[0m] 0xc7 9Rich
+  [[33mgeneric[0m] 0x1d8 .text
+  [[33mgeneric[0m] 0x1ff `.rdata
+  [[33mgeneric[0m] 0x227 @.data
+  [[33mgeneric[0m] 0xa72 D$$PV
+  [[33mgeneric[0m] 0xbef VVVVV
+  [[33mgeneric[0m] 0xc89 VVVVV
+  [[33mgeneric[0m] 0x10e1 9] uO
+  [[33mgeneric[0m] 0x10e8 9] tH9]$u>9](u>
+  [[33mgeneric[0m] 0x1108 >:u5;
+  [[33mgeneric[0m] 0x116a <\t	<.u

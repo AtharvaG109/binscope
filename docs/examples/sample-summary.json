@@ -1,0 +1,87 @@
+{
+  "root": "testdata/fixtures",
+  "scanned_files": 3,
+  "analyzed_files": 3,
+  "skipped_files": 0,
+  "errors": [],
+  "by_format": [
+    {
+      "format": "elf",
+      "count": 1
+    },
+    {
+      "format": "mach_o",
+      "count": 1
+    },
+    {
+      "format": "pe",
+      "count": 1
+    }
+  ],
+  "highest_risk": [
+    {
+      "path": "testdata/fixtures/sample_pe.exe",
+      "file_name": "sample_pe.exe",
+      "format": "pe",
+      "risk_score": 44,
+      "findings": [
+        "Suspicious API combo: dynamic_resolution",
+        "Protection disabled: ASLR",
+        "Protection disabled: NX",
+        "Protection disabled: CFG"
+      ]
+    },
+    {
+      "path": "testdata/fixtures/sample_macho",
+      "file_name": "sample_macho",
+      "format": "mach_o",
+      "risk_score": 4,
+      "findings": [
+        "Interesting strings: filesystem",
+        "Interesting strings: url"
+      ]
+    },
+    {
+      "path": "testdata/fixtures/sample_elf",
+      "file_name": "sample_elf",
+      "format": "elf",
+      "risk_score": 0,
+      "findings": [
+        "Interesting strings: filesystem"
+      ]
+    }
+  ],
+  "reports": [
+    {
+      "path": "testdata/fixtures/sample_pe.exe",
+      "file_name": "sample_pe.exe",
+      "format": "pe",
+      "risk_score": 44,
+      "findings": [
+        "Suspicious API combo: dynamic_resolution",
+        "Protection disabled: ASLR",
+        "Protection disabled: NX",
+        "Protection disabled: CFG"
+      ]
+    },
+    {
+      "path": "testdata/fixtures/sample_macho",
+      "file_name": "sample_macho",
+      "format": "mach_o",
+      "risk_score": 4,
+      "findings": [
+        "Interesting strings: filesystem",
+        "Interesting strings: url"
+      ]
+    },
+    {
+      "path": "testdata/fixtures/sample_elf",
+      "file_name": "sample_elf",
+      "format": "elf",
+      "risk_score": 0,
+      "findings": [
+        "Interesting strings: filesystem"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-04-19
+
+Documentation and repository governance release.
+
+### Added
+
+- `CODEOWNERS` coverage for source, docs, tests, and GitHub config
+- `docs/` landing page with example report artifacts
+- SVG terminal snapshot for repository browsing
+- committed sample terminal and JSON outputs generated from clean fixtures
+
 ## [0.1.0] - 2026-04-19
 
 Initial public release.

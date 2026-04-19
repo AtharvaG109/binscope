@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">binscope sample PE terminal snapshot</title>
+  <desc id="desc">A stylized terminal snapshot showing binscope analysis output for a sample PE file.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#101826"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <rect x="36" y="34" width="1128" height="692" rx="18" fill="#111827" stroke="#263244" stroke-width="2"/>
+  <circle cx="78" cy="68" r="9" fill="#ef4444"/>
+  <circle cx="106" cy="68" r="9" fill="#f59e0b"/>
+  <circle cx="134" cy="68" r="9" fill="#22c55e"/>
+  <text x="170" y="74" fill="#93a4b8" font-family="Menlo, Monaco, Consolas, monospace" font-size="20">binscope analyze testdata/fixtures/sample_pe.exe</text>
+
+  <g font-family="Menlo, Monaco, Consolas, monospace" font-size="22">
+    <text x="64" y="122" fill="#67e8f9">binscope</text>
+    <text x="180" y="122" fill="#f8fafc">sample_pe.exe</text>
+    <text x="410" y="122" fill="#cbd5e1">(PE)</text>
+
+    <text x="64" y="164" fill="#f8fafc">Risk score:</text>
+    <text x="220" y="164" fill="#facc15">44/100</text>
+    <text x="332" y="164" fill="#f8fafc">Size: 65536 bytes</text>
+
+    <text x="64" y="208" fill="#f8fafc">Machine: I386</text>
+    <text x="280" y="208" fill="#f8fafc">Entry point: 0x4025e7</text>
+    <text x="610" y="208" fill="#f8fafc">Imports: 79</text>
+
+    <text x="64" y="268" fill="#e2e8f0">Findings</text>
+    <text x="64" y="306" fill="#facc15">[medium]</text>
+    <text x="196" y="306" fill="#f8fafc">Suspicious API combo: dynamic_resolution</text>
+    <text x="64" y="340" fill="#facc15">[medium]</text>
+    <text x="196" y="340" fill="#f8fafc">Protection disabled: ASLR</text>
+    <text x="64" y="374" fill="#facc15">[medium]</text>
+    <text x="196" y="374" fill="#f8fafc">Protection disabled: NX</text>
+    <text x="64" y="408" fill="#facc15">[medium]</text>
+    <text x="196" y="408" fill="#f8fafc">Suspicious import libraries: kernel32.dll</text>
+
+    <text x="64" y="472" fill="#e2e8f0">Sections</text>
+    <text x="64" y="510" fill="#f8fafc">.text</text>
+    <text x="190" y="510" fill="#93c5fd">entropy 6.62</text>
+    <text x="374" y="510" fill="#60a5fa">####################....</text>
+    <text x="64" y="544" fill="#f8fafc">.rdata</text>
+    <text x="190" y="544" fill="#93c5fd">entropy 5.47</text>
+    <text x="374" y="544" fill="#60a5fa">################........</text>
+    <text x="64" y="578" fill="#f8fafc">.data</text>
+    <text x="190" y="578" fill="#93c5fd">entropy 2.25</text>
+    <text x="374" y="578" fill="#60a5fa">#######.................</text>
+
+    <text x="64" y="642" fill="#e2e8f0">Protections</text>
+    <text x="64" y="680" fill="#f8fafc">ASLR</text>
+    <text x="162" y="680" fill="#f87171">disabled</text>
+    <text x="64" y="712" fill="#f8fafc">NX</text>
+    <text x="162" y="712" fill="#f87171">disabled</text>
+  </g>
+</svg>

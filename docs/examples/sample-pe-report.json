@@ -1,0 +1,2010 @@
+{
+  "path": "testdata/fixtures/sample_pe.exe",
+  "file_name": "sample_pe.exe",
+  "format": "pe",
+  "size": 65536,
+  "sha256": "75f12ea2f30d9c0d872dade345f30f562e6d93847b6a509ba53beec6d0b2c346",
+  "machine": "I386",
+  "entry_point": 4204007,
+  "image_base": 4194304,
+  "headers": {
+    "kind": "pe",
+    "architecture": "I386",
+    "entry_point": 4204007,
+    "image_base": 4194304,
+    "details": [
+      {
+        "key": "dos_magic",
+        "value": "0x5a4d"
+      },
+      {
+        "key": "nt_signature",
+        "value": "0x4550"
+      },
+      {
+        "key": "coff_machine",
+        "value": "0x14c"
+      },
+      {
+        "key": "number_of_sections",
+        "value": "3"
+      },
+      {
+        "key": "timestamp",
+        "value": "0x518bb0f8"
+      },
+      {
+        "key": "characteristics",
+        "value": "0x103"
+      },
+      {
+        "key": "subsystem",
+        "value": "0x3"
+      },
+      {
+        "key": "dll_characteristics",
+        "value": "0x8000"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "file_offset": 1024,
+      "file_size": 51549,
+      "virtual_address": 4198400,
+      "virtual_size": 51549,
+      "flags": [
+        "execute",
+        "read",
+        "code"
+      ],
+      "entropy": 6.621348351006637,
+      "block_entropies": [
+        5.887880701471818,
+        5.388402523580135,
+        5.884701783020505,
+        5.314526988322737,
+        5.64913697771095,
+        5.574882804529622,
+        5.497055354666496,
+        5.464108704590629,
+        5.787892084460989,
+        5.789819333866425,
+        5.686267617600344,
+        5.492390418453596,
+        5.717863200301747,
+        5.791820561765943,
+        5.723586066069659,
+        5.6770368521207715,
+        5.9122718578807225,
+        5.611858346504666,
+        5.5422826084763726,
+        5.475560681533852,
+        5.293001042771227,
+        5.321769927337031,
+        5.766739334622046,
+        5.477043977706918,
+        5.836958227445184,
+        4.969175123538916,
+        5.234442167268708,
+        4.901604990230556,
+        5.016970704947453,
+        5.257751535111316,
+        5.006846336780943,
+        5.360871032820454,
+        5.410008603893794,
+        4.887045432723454,
+        5.250368093110333,
+        5.469321519003334,
+        5.932285075579938,
+        5.54875574434683,
+        5.429484519272844,
+        5.762025172747358,
+        5.895374749490049,
+        5.41769267631615,
+        5.568236557813016,
+        5.83859887372913,
+        5.781919708422382,
+        5.783414129976006,
+        5.433076098172129,
+        5.610897731316446,
+        5.704947689360047,
+        5.732326862541375,
+        5.967409907410003,
+        5.349147388757,
+        5.656274753849665,
+        5.5461240264334055,
+        6.018909293422664,
+        5.735873538687368,
+        5.69299367792021,
+        5.897147054143516,
+        5.672969965169808,
+        5.070668493046896,
+        5.372879126726805,
+        5.214421209851597,
+        5.542773230109468,
+        5.2582813493057845,
+        5.439767794429759,
+        5.215114253261542,
+        5.293514600373851,
+        5.028353166716216,
+        5.842213429071623,
+        5.952000835251739,
+        5.719878625977416,
+        5.657244046950863,
+        5.69559898401866,
+        5.673784430547734,
+        5.751807263575652,
+        5.963543788606609,
+        5.4616421410384834,
+        5.744875324497802,
+        5.638595499893851,
+        5.678960323299538,
+        5.812748772929652,
+        5.896771331540304,
+        5.881489310818934,
+        5.798605538823233,
+        5.796374162253727,
+        5.681897027999372,
+        5.791025050183249,
+        5.550329129256277,
+        5.754245447281813,
+        5.6218739771802335,
+        5.656659754518371,
+        5.674761695383519,
+        5.378585341537475,
+        5.963198056467398,
+        5.716191929411676,
+        5.520169649729593,
+        5.355675835223708,
+        5.740636130255198,
+        5.826778194652278,
+        5.5346066823578175,
+        5.573882615362915,
+        6.027281966280962,
+        6.002210520650459,
+        5.38979884760645,
+        5.898516725341538,
+        5.691239454956367,
+        5.614681259366149,
+        5.125560063178027,
+        5.164851126805362,
+        4.818783900885738,
+        5.17747040636683,
+        5.2100823787634365,
+        5.592771401118672,
+        5.669944497948537,
+        5.563447942218865,
+        5.9266876552166075,
+        5.951589259295412,
+        5.865833420744458,
+        5.599440265989863,
+        5.452405283428074,
+        5.299340945120762,
+        5.893440371490703,
+        5.396939670760106,
+        4.04731667080298,
+        4.79147725504779,
+        5.9264991400615585,
+        5.9157264742594755,
+        5.737805174159267,
+        5.455423612464716,
+        5.539723073524684,
+        5.323121873533117,
+        5.777809974775593,
+        5.652282872090966,
+        5.464413948837138,
+        5.7045381351845235,
+        5.731739524708298,
+        4.945280628620674,
+        5.484582661579315,
+        6.0748711591179125,
+        5.955612820556694,
+        5.950968472400073,
+        5.410273911614866,
+        5.511136439033236,
+        5.364805615635242,
+        5.660372480510533,
+        5.913642980999473,
+        5.9385974959519086,
+        5.839124696504311,
+        5.8656295491916985,
+        5.762890775235433,
+        5.720334703412631,
+        5.791490647054777,
+        5.647183455753367,
+        5.893866238802401,
+        5.756005272440297,
+        5.49808739188941,
+        5.688452260055827,
+        5.816281917722356,
+        5.568335158246092,
+        6.173541615796876,
+        5.57191900349437,
+        5.97345816909665,
+        5.8977888955755455,
+        5.8605410773172775,
+        5.323579733753123,
+        5.518063151431705,
+        5.95014921091018,
+        5.703283949919119,
+        5.780987680419231,
+        5.6778014500009535,
+        6.137496419139225,
+        5.9465319926474,
+        5.77127765939798,
+        5.780161905106511,
+        5.7944634820536765,
+        6.032964466529105,
+        5.876610236980538,
+        5.821688472352253,
+        5.495158405789105,
+        5.1772241146452025,
+        5.495361010007697,
+        5.769030336689665,
+        5.385349606835705,
+        5.1938792225382855,
+        5.815947128825985,
+        5.786193104354604,
+        5.633366517176162,
+        5.471614697025152,
+        5.4825460233340815,
+        5.694037438746911,
+        5.439878772681509,
+        5.78117158486911,
+        6.004378450254009,
+        5.766855780891156,
+        5.792152566683342,
+        5.992691894385761,
+        5.654598375694526,
+        5.614459856298931,
+        5.886447071245987,
+        5.884265560612879,
+        5.7512618184778805,
+        5.002771350122852
+      ],
+      "suspicious": false
+    },
+    {
+      "name": ".rdata",
+      "file_offset": 52736,
+      "file_size": 8288,
+      "virtual_address": 4251648,
+      "virtual_size": 8288,
+      "flags": [
+        "read",
+        "initialized_data"
+      ],
+      "entropy": 5.473150978568922,
+      "block_entropies": [
+        3.5004338826438257,
+        4.282134851445858,
+        4.794960608828547,
+        5.6686378532004635,
+        4.653762058440119,
+        4.668162262219439,
+        4.604388202061146,
+        4.673469975993339,
+        4.55543435846356,
+        3.9805309687223382,
+        2.0608843751988055,
+        1.5665181546490243,
+        1.129118177549763,
+        1.7305692848596494,
+        2.353495604562098,
+        5.500102800033307,
+        7.671875,
+        7.796875,
+        6.301382562728671,
+        4.513966857031169,
+        3.624562018823484,
+        2.289507223719713,
+        2.2558023578022,
+        2.3413820678473227,
+        2.169293330840503,
+        3.1442543050349605,
+        4.4535156127094035,
+        4.803198537906421,
+        4.898785654349678,
+        4.869684926687622,
+        4.995492831658712,
+        4.8087170393704115,
+        4.73987489382558
+      ],
+      "suspicious": false
+    },
+    {
+      "name": ".data",
+      "file_offset": 61440,
+      "file_size": 4096,
+      "virtual_address": 4263936,
+      "virtual_size": 11204,
+      "flags": [
+        "read",
+        "write",
+        "initialized_data"
+      ],
+      "entropy": 2.2523233306733843,
+      "block_entropies": [
+        0.417034322732298,
+        -0.0,
+        1.1440812115941914,
+        2.0129791870505382,
+        0.9652201305037719,
+        0.9312592378690552,
+        1.8860360556164644,
+        0.8827719154100153,
+        1.6048752780577498,
+        1.852681222585836,
+        1.843933742208295,
+        3.012227587917013,
+        3.6009209530810593,
+        2.8612255079941966,
+        1.8275340263007345,
+        1.4345463582021725
+      ],
+      "suspicious": false
+    }
+  ],
+  "imports": [
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "CloseHandle"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "CompareStringA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "CompareStringW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "CreateFileA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "CreateProcessA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "DeleteCriticalSection"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "EnterCriticalSection"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "ExitProcess"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "FlushFileBuffers"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "FreeEnvironmentStringsA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "FreeEnvironmentStringsW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GenerateConsoleCtrlEvent"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetACP"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetCPInfo"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetCommandLineA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetConsoleCP"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetConsoleMode"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetConsoleOutputCP"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetCurrentProcess"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetCurrentProcessId"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetCurrentThreadId"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetEnvironmentStrings"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetEnvironmentStringsW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetExitCodeProcess"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetFileAttributesA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetFileType"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetLastError"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetLocaleInfoA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetModuleFileNameA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetModuleHandleW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetOEMCP"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetProcAddress"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetProcessHeap"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetStartupInfoA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetStdHandle"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetStringTypeA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetStringTypeW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetSystemTimeAsFileTime"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "GetTickCount"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "HeapAlloc"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "HeapCreate"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "HeapFree"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "HeapReAlloc"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "HeapSize"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "InitializeCriticalSectionAndSpinCount"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "InterlockedDecrement"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "InterlockedIncrement"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "IsDebuggerPresent"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "IsValidCodePage"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "LCMapStringA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "LCMapStringW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "LeaveCriticalSection"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "LoadLibraryA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "MultiByteToWideChar"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "QueryPerformanceCounter"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "ReadFile"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "RtlUnwind"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetConsoleCtrlHandler"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetEndOfFile"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetEnvironmentVariableA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetFilePointer"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetHandleCount"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetLastError"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetStdHandle"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "SetUnhandledExceptionFilter"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "Sleep"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "TerminateProcess"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "TlsAlloc"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "TlsFree"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "TlsGetValue"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "TlsSetValue"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "UnhandledExceptionFilter"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "VirtualAlloc"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "VirtualFree"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "WaitForSingleObject"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "WideCharToMultiByte"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "WriteConsoleA"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "WriteConsoleW"
+    },
+    {
+      "library": "KERNEL32.dll",
+      "symbol": "WriteFile"
+    }
+  ],
+  "import_analysis": {
+    "imphash": "614f46e68614ece6478b1b8e7a0502c8",
+    "fingerprint_sha256": "3bbdd415c716a9e8ad01e713699f47dc157d80109255a191ebfad020f46bebe2",
+    "libraries": [
+      {
+        "name": "kernel32.dll",
+        "symbol_count": 79
+      }
+    ],
+    "suspicious_libraries": [
+      "kernel32.dll"
+    ]
+  },
+  "suspicious_import_combos": [
+    {
+      "name": "dynamic_resolution",
+      "severity": "medium",
+      "matched": [
+        "kernel32.dll!loadlibrarya",
+        "kernel32.dll!getprocaddress"
+      ],
+      "rationale": "Runtime API resolution often used for evasion"
+    }
+  ],
+  "carved_strings": [
+    {
+      "offset": 77,
+      "value": "!This program cannot be run in DOS mode.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 199,
+      "value": "9Rich",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 472,
+      "value": ".text",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 511,
+      "value": "`.rdata",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 551,
+      "value": "@.data",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 2674,
+      "value": "D$$PV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 3055,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 3209,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4321,
+      "value": "9] uO",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4328,
+      "value": "9] tH9]$u>9](u>",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4360,
+      "value": ">:u5;",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4458,
+      "value": "<\\t\t<.u",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4549,
+      "value": "9E vEP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4583,
+      "value": "9u(v#V",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4618,
+      "value": "9u wf",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 4691,
+      "value": "^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 5132,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 5730,
+      "value": "uBhxY@",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 7135,
+      "value": "PPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 7341,
+      "value": ", <Xw",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 7467,
+      "value": "t%HHt",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 8042,
+      "value": "HHtXHHt",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 8282,
+      "value": "HHty+",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 9415,
+      "value": ">If90t",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 10017,
+      "value": "j@j ^V",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 10160,
+      "value": "[j@j ",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 10599,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 11199,
+      "value": "Y__^[",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 12260,
+      "value": "~,WPV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 13099,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 13789,
+      "value": "YSSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 13896,
+      "value": "YY</t",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 15645,
+      "value": "0A@@Ju",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 16533,
+      "value": "Y_^[]",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 18339,
+      "value": "tehXQ@",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 19122,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 19190,
+      "value": "PPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 19257,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 19293,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 19330,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 20894,
+      "value": "PPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 21570,
+      "value": ">=Yt1j",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 21589,
+      "value": "tNVSP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 21608,
+      "value": "PPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 21986,
+      "value": "< tK<\ttG",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 22428,
+      "value": "@PWSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 22846,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 23135,
+      "value": "^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 23259,
+      "value": "j\"^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 23337,
+      "value": "QSWVj",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 23643,
+      "value": "v\tN+D$",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 23711,
+      "value": "URPQQh i@",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 24054,
+      "value": ";5p*A",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 24424,
+      "value": ";5p*A",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 24430,
+      "value": "wIVSP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 24887,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 27759,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 27896,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 28054,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 28161,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 29899,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30104,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30286,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30322,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30493,
+      "value": "^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30542,
+      "value": "^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 30829,
+      "value": "j\"^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 31031,
+      "value": "u8SS3",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 31183,
+      "value": "9]$SS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 31510,
+      "value": "t\"SS9]",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 32143,
+      "value": "9] SS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 33106,
+      "value": "v$;5l",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 33159,
+      "value": "0SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 33254,
+      "value": "PPPPPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 33372,
+      "value": "0SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 33532,
+      "value": "0SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 34646,
+      "value": "PPPPPPPP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 34926,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 34991,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 35602,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 35666,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 36083,
+      "value": "SVWUj",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 36244,
+      "value": ";t$,v-",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 36377,
+      "value": "UQPXY]Y[",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 36435,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 38112,
+      "value": "WWWWW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 38985,
+      "value": "VW|[;",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 39196,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 40233,
+      "value": "WWWWV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 40268,
+      "value": "t+WWVPV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 40823,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 40886,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 41048,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 41222,
+      "value": "95  A",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 41375,
+      "value": "8VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 41502,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 41995,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 42056,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 42206,
+      "value": "QQSV3",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 42234,
+      "value": "VVVVj",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 42470,
+      "value": "9=`*A",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 42973,
+      "value": "t{~Bj",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 43438,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 43499,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 43828,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 43861,
+      "value": "tSj=V",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 44256,
+      "value": "@Y@PW",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 44273,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 44450,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 44508,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 44920,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 45061,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 45245,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 46532,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 46776,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 46835,
+      "value": "tGHt.Ht&",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 46860,
+      "value": "^SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 48573,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 48731,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 48859,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 49015,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 49045,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 49194,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 49264,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 50134,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 50237,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 50285,
+      "value": "VjD^V",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 50877,
+      "value": "uqSSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51299,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51353,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51473,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51531,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51563,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51598,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51708,
+      "value": "VVVVV",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 51857,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 52129,
+      "value": "SSSSS",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 52248,
+      "value": "r0f;p",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 52379,
+      "value": "r0f;H",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53120,
+      "value": "failed to get exit code from process.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53160,
+      "value": "failed to create process.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53196,
+      "value": "Could not exec %s",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53216,
+      "value": "Cannot find Python executable %s",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53252,
+      "value": "#!python.exe",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53272,
+      "value": "Cannot open %s",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53288,
+      "value": "-script.py",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53300,
+      "value": "CorExitProcess",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53316,
+      "value": "mscoree.dll",
+      "encoding": "utf16_le",
+      "category": "generic"
+    },
+    {
+      "offset": 53340,
+      "value": "(null)",
+      "encoding": "utf16_le",
+      "category": "generic"
+    },
+    {
+      "offset": 53356,
+      "value": "(null)",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53401,
+      "value": "( 8PX",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53409,
+      "value": "700WP",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53425,
+      "value": "`h````",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53433,
+      "value": "xpxxxx",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53503,
+      "value": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53604,
+      "value": "EncodePointer",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53620,
+      "value": "KERNEL32.DLL",
+      "encoding": "utf16_le",
+      "category": "generic"
+    },
+    {
+      "offset": 53648,
+      "value": "DecodePointer",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53664,
+      "value": "FlsFree",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53672,
+      "value": "FlsSetValue",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53684,
+      "value": "FlsGetValue",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53696,
+      "value": "FlsAlloc",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53708,
+      "value": "runtime error ",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53728,
+      "value": "TLOSS error",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53744,
+      "value": "SING error",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53760,
+      "value": "DOMAIN error",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53776,
+      "value": "R6034",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53783,
+      "value": "An application has made an attempt to load the C runtime library incorrectly.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53861,
+      "value": "Please contact the application's support team for more information.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53936,
+      "value": "R6033",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 53943,
+      "value": "- Attempt to use MSIL code from this assembly during native code initialization",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54023,
+      "value": "This indicates a bug in your application. It is most likely the result of calling an MSIL-compiled (/clr) function from a native constructor or from DllMain.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54184,
+      "value": "R6032",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54191,
+      "value": "- not enough space for locale information",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54240,
+      "value": "R6031",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54247,
+      "value": "- Attempt to initialize the CRT more than once.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54295,
+      "value": "This indicates a bug in your application.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54340,
+      "value": "R6030",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54347,
+      "value": "- CRT not initialized",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54372,
+      "value": "R6028",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54379,
+      "value": "- unable to initialize heap",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54412,
+      "value": "R6027",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54419,
+      "value": "- not enough space for lowio initialization",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54468,
+      "value": "R6026",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54475,
+      "value": "- not enough space for stdio initialization",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54524,
+      "value": "R6025",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54531,
+      "value": "- pure virtual function call",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54564,
+      "value": "R6024",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54571,
+      "value": "- not enough space for _onexit/atexit table",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54620,
+      "value": "R6019",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54627,
+      "value": "- unable to open console device",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54664,
+      "value": "R6018",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54671,
+      "value": "- unexpected heap error",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54700,
+      "value": "R6017",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54707,
+      "value": "- unexpected multithread lock error",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54748,
+      "value": "R6016",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54755,
+      "value": "- not enough space for thread data",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54794,
+      "value": "This application has requested the Runtime to terminate it in an unusual way.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54872,
+      "value": "Please contact the application's support team for more information.",
+      "encoding": "ascii",
+      "category": "generic"
+    },
+    {
+      "offset": 54944,
+      "value": "R6009",
+      "encoding": "ascii",
+      "category": "generic"
+    }
+  ],
+  "all_strings_count": 333,
+  "interesting_strings_count": 3,
+  "yara_candidates": [],
+  "rich_header": {
+    "offset": 128,
+    "length": 80,
+    "xor_key": 965751325,
+    "fingerprint": "133c96f27e3012ada3ed88b34c4694c59e24a1b24884cfa03ecfcfb81c7af0f3",
+    "entries": [
+      {
+        "product_id": 123,
+        "build": 50727,
+        "count": 3,
+        "label": "product_123"
+      },
+      {
+        "product_id": 1,
+        "build": 0,
+        "count": 91,
+        "label": "import"
+      },
+      {
+        "product_id": 150,
+        "build": 20413,
+        "count": 4,
+        "label": "product_150"
+      },
+      {
+        "product_id": 132,
+        "build": 21022,
+        "count": 36,
+        "label": "product_132"
+      },
+      {
+        "product_id": 149,
+        "build": 21022,
+        "count": 18,
+        "label": "product_149"
+      },
+      {
+        "product_id": 131,
+        "build": 21022,
+        "count": 112,
+        "label": "product_131"
+      },
+      {
+        "product_id": 145,
+        "build": 21022,
+        "count": 1,
+        "label": "product_145"
+      }
+    ]
+  },
+  "resources": [],
+  "protections": [
+    {
+      "name": "ASLR",
+      "enabled": false,
+      "detail": "IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE"
+    },
+    {
+      "name": "HighEntropyVA",
+      "enabled": false,
+      "detail": "64-bit high entropy ASLR"
+    },
+    {
+      "name": "NX",
+      "enabled": false,
+      "detail": "DEP / NX compatibility bit"
+    },
+    {
+      "name": "CFG",
+      "enabled": false,
+      "detail": "Control Flow Guard"
+    },
+    {
+      "name": "NoSEH",
+      "enabled": false,
+      "detail": "Structured exception handling disabled"
+    }
+  ],
+  "packer_hits": [],
+  "findings": [
+    {
+      "severity": "medium",
+      "title": "Suspicious API combo: dynamic_resolution",
+      "detail": "Runtime API resolution often used for evasion"
+    },
+    {
+      "severity": "medium",
+      "title": "Protection disabled: ASLR",
+      "detail": "IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE"
+    },
+    {
+      "severity": "medium",
+      "title": "Protection disabled: NX",
+      "detail": "DEP / NX compatibility bit"
+    },
+    {
+      "severity": "medium",
+      "title": "Protection disabled: CFG",
+      "detail": "Control Flow Guard"
+    },
+    {
+      "severity": "medium",
+      "title": "Suspicious import libraries",
+      "detail": "kernel32.dll"
+    },
+    {
+      "severity": "low",
+      "title": "PE Rich header present",
+      "detail": "Compiler/toolchain fingerprint data is available"
+    }
+  ],
+  "risk_score": 44,
+  "yara_rule": null
+}

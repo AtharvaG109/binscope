@@ -136,6 +136,10 @@ This repository includes:
 - Dependabot for Cargo and GitHub Actions updates
 - automated release builds for tagged versions
 
+## Docs
+
+Repository examples and sample output live in [docs/README.md](./docs/README.md).
+
 ## Roadmap ideas
 
 - richer PE resource decoding
@@ -146,7 +150,7 @@ This repository includes:
 
 ## Contributing
 
-Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the development workflow and [CHANGELOG.md](./CHANGELOG.md) for release notes.
+Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the development workflow, [CHANGELOG.md](./CHANGELOG.md) for release notes, and [`.github/CODEOWNERS`](./.github/CODEOWNERS) for review ownership.
 
 ## Security
 
