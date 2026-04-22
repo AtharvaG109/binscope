@@ -55,4 +55,19 @@ mod tests {
         assert!(blocks[0] < 0.1);
         assert!(blocks[1] > 7.9);
     }
+
+    #[test]
+    fn empty_input_and_zero_block_size_return_empty_blocks() {
+        assert!(block_entropies(&[], 256).is_empty());
+        assert!(block_entropies(&[1, 2, 3], 0).is_empty());
+    }
+
+    #[test]
+    fn final_partial_block_is_included() {
+        let bytes = vec![0u8; 300];
+        let blocks = block_entropies(&bytes, 256);
+        assert_eq!(blocks.len(), 2);
+        assert_eq!(blocks[0], 0.0);
+        assert_eq!(blocks[1], 0.0);
+    }
 }

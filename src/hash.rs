@@ -198,7 +198,7 @@ fn hex_char(value: u8) -> char {
 
 #[cfg(test)]
 mod tests {
-    use super::{md5_hex, sha256_hex};
+    use super::{hex_encode, md5_hex, sha256_hex};
 
     #[test]
     fn hashes_known_sha256_vector() {
@@ -211,5 +211,19 @@ mod tests {
     #[test]
     fn hashes_known_md5_vector() {
         assert_eq!(md5_hex(b"abc"), "900150983cd24fb0d6963f7d28e17f72");
+    }
+
+    #[test]
+    fn hashes_empty_input_vectors() {
+        assert_eq!(
+            sha256_hex(b""),
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        );
+        assert_eq!(md5_hex(b""), "d41d8cd98f00b204e9800998ecf8427e");
+    }
+
+    #[test]
+    fn hex_encode_uses_lowercase_output() {
+        assert_eq!(hex_encode(&[0xde, 0xad, 0xbe, 0xef]), "deadbeef");
     }
 }

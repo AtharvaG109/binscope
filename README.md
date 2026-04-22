@@ -82,6 +82,19 @@ cargo check --offline
 cargo test --offline
 ```
 
+Local shortcuts:
+
+```bash
+make ci
+./scripts/ci-local.sh
+./scripts/json-smoke.sh
+```
+
+Additional docs:
+
+- [`docs/json-output.md`](./docs/json-output.md)
+- [`docs/triage-playbook.md`](./docs/triage-playbook.md)
+
 ## Fixture-backed tests
 
 Clean sample binaries live in [`testdata/fixtures`](./testdata/fixtures):

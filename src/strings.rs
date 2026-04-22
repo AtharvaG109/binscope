@@ -202,4 +202,23 @@ mod tests {
         assert!(strings.iter().any(|item| item.category == "registry"));
         assert!(strings.iter().any(|item| item.category == "winapi"));
     }
+
+    #[test]
+    fn categorises_filesystem_and_crypto_strings() {
+        let bytes = b"/tmp/payload.bin\x00curve25519 session key\x00".to_vec();
+        let strings = carve_strings(&bytes);
+        assert!(strings.iter().any(|item| item.category == "filesystem"));
+        assert!(strings.iter().any(|item| item.category == "crypto"));
+    }
+
+    #[test]
+    fn truncates_total_strings_to_guard_memory() {
+        let mut bytes = Vec::new();
+        for idx in 0..2_200 {
+            bytes.extend_from_slice(format!("value-{idx:04}\x00").as_bytes());
+        }
+
+        let strings = carve_strings(&bytes);
+        assert_eq!(strings.len(), 2_000);
+    }
 }
