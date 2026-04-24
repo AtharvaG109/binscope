@@ -1,4 +1,4 @@
-.PHONY: fmt check test ci
+.PHONY: fmt check test smoke ci
 
 fmt:
 	cargo fmt
@@ -9,4 +9,7 @@ check:
 test:
 	cargo test --offline
 
-ci: fmt check test
+smoke:
+	./scripts/json-smoke.sh
+
+ci: fmt check test smoke

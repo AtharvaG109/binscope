@@ -90,6 +90,10 @@ make ci
 ./scripts/json-smoke.sh
 ```
 
+`make smoke` runs the JSON smoke test against the committed fixtures and
+validates both `analyze --json` and `summarize --json` output shape before a
+release or demo.
+
 Additional docs:
 
 - [`docs/json-output.md`](./docs/json-output.md)
