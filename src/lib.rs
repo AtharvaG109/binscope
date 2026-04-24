@@ -8,6 +8,7 @@ mod strings;
 
 use anyhow::Result;
 use clap::Parser;
+use std::process;
 
 use crate::analyzer::{AnalyzeOptions, analyze_path, summarize_path};
 use crate::cli::{Cli, Commands};
@@ -26,6 +27,7 @@ pub fn run() -> Result<()> {
             file,
             json,
             yara,
+            fail_on_risk,
             strings_interesting_only,
         } => {
             let report = analyze_path(
@@ -47,10 +49,15 @@ pub fn run() -> Result<()> {
                     }
                 }
             }
+
+            if fail_on_risk.is_some_and(|threshold| report.risk_score >= threshold) {
+                process::exit(2);
+            }
         }
         Commands::Summarize {
             path,
             json,
+            fail_on_risk,
             strings_interesting_only,
         } => {
             let summary = summarize_path(
@@ -65,6 +72,15 @@ pub fn run() -> Result<()> {
                 println!("{}", serde_json::to_string_pretty(&summary)?);
             } else {
                 println!("{}", render::render_summary(&summary));
+            }
+
+            if fail_on_risk.is_some_and(|threshold| {
+                summary
+                    .reports
+                    .iter()
+                    .any(|report| report.risk_score >= threshold)
+            }) {
+                process::exit(2);
             }
         }
     }

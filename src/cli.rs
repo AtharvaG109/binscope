@@ -23,6 +23,12 @@ pub enum Commands {
         yara: bool,
         #[arg(
             long,
+            value_parser = clap::value_parser!(u8).range(0..=100),
+            help = "Exit with code 2 when the analyzed file risk score is at or above this threshold"
+        )]
+        fail_on_risk: Option<u8>,
+        #[arg(
+            long,
             help = "Only keep non-generic carved strings in the final report output"
         )]
         strings_interesting_only: bool,
@@ -31,6 +37,12 @@ pub enum Commands {
         path: PathBuf,
         #[arg(long, help = "Emit JSON instead of the terminal report")]
         json: bool,
+        #[arg(
+            long,
+            value_parser = clap::value_parser!(u8).range(0..=100),
+            help = "Exit with code 2 when any summarized file risk score is at or above this threshold"
+        )]
+        fail_on_risk: Option<u8>,
         #[arg(
             long,
             help = "Only keep non-generic carved strings while scanning individual files"
