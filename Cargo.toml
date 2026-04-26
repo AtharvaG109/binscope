@@ -6,7 +6,7 @@ edition = "2024"
 [dependencies]
 anyhow = "1"
 clap = { version = "4.5", features = ["derive"] }
-miniz_oxide = "0.8"
+miniz_oxide = "0.9"
 object = { version = "0.37.3", default-features = false, features = ["read", "std", "elf", "pe", "macho"] }
 regex = "1"
 serde = { version = "1", features = ["derive"] }
