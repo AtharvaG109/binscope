@@ -174,6 +174,7 @@ pub struct SummaryReport {
     pub archive_entries_scanned: usize,
     pub errors: Vec<FileError>,
     pub by_format: Vec<FormatCount>,
+    pub by_severity: Vec<SeverityCount>,
     pub highest_risk: Vec<BinarySummary>,
     pub reports: Vec<BinarySummary>,
 }
@@ -196,5 +197,11 @@ pub struct FileError {
 #[derive(Debug, Clone, Serialize)]
 pub struct FormatCount {
     pub format: BinaryFormat,
+    pub count: usize,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct SeverityCount {
+    pub severity: Severity,
     pub count: usize,
 }
