@@ -21,7 +21,7 @@ use crate::model::{
     BinaryFormat, BinaryReport, BinarySummary, CarvedString, FileError, Finding, FormatCount,
     HeaderField, HeaderInfo, ImportAnalysis, ImportEntry, ImportLibrary, PackerHit,
     ProtectionCheck, ResourceInfo, RichHeaderEntryReport, RichHeaderReport, SectionInfo, Severity,
-    SummaryReport, SuspiciousImportCombo,
+    SeverityCount, SummaryReport, SuspiciousImportCombo,
 };
 use crate::strings::carve_strings;
 
@@ -120,6 +120,7 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
 
     let mut reports = Vec::new();
     let mut by_format = BTreeMap::<&'static str, (BinaryFormat, usize)>::new();
+    let mut by_severity = BTreeMap::<&'static str, (Severity, usize)>::new();
 
     for candidate in &collector.candidates {
         match analyze_bytes(
@@ -133,6 +134,12 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
                     .entry(format_key(report.format))
                     .or_insert((report.format, 0));
                 entry.1 += 1;
+                for finding in &report.findings {
+                    let entry = by_severity
+                        .entry(severity_key(finding.severity))
+                        .or_insert((finding.severity, 0));
+                    entry.1 += 1;
+                }
                 reports.push(BinarySummary {
                     path: report.path.clone(),
                     file_name: report.file_name.clone(),
@@ -181,6 +188,10 @@ pub fn summarize_path(path: &Path, options: &AnalyzeOptions) -> Result<SummaryRe
         by_format: by_format
             .into_values()
             .map(|(format, count)| FormatCount { format, count })
+            .collect(),
+        by_severity: by_severity
+            .into_values()
+            .map(|(severity, count)| SeverityCount { severity, count })
             .collect(),
         highest_risk,
         reports,
@@ -2037,6 +2048,15 @@ fn format_key(format: BinaryFormat) -> &'static str {
         BinaryFormat::Pe => "pe",
         BinaryFormat::Elf => "elf",
         BinaryFormat::MachO => "macho",
+    }
+}
+
+fn severity_key(severity: Severity) -> &'static str {
+    match severity {
+        Severity::Critical => "0-critical",
+        Severity::High => "1-high",
+        Severity::Medium => "2-medium",
+        Severity::Low => "3-low",
     }
 }
 

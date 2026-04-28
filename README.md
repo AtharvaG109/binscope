@@ -30,6 +30,7 @@ Reverse engineers often need a quick first-pass tool that answers a few high-val
 - Emits a color terminal report and machine-friendly JSON
 - Generates a YARA rule skeleton from recovered strings, entropy, and import fingerprints
 - Summarizes whole directories with an aggregate risk overview
+- Includes aggregate finding severity counts in directory and archive summaries
 - Recursively scans `zip`, `jar`, `tar`, `tgz`, and `tar.gz` containers during `summarize`
 
 ## Install

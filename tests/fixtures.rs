@@ -99,6 +99,7 @@ fn summarizes_fixture_directory() {
             .iter()
             .any(|item| item.format == BinaryFormat::MachO)
     );
+    assert!(!summary.by_severity.is_empty());
     assert_eq!(summary.archives_scanned, 0);
 }
 

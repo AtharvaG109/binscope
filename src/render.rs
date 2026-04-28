@@ -214,6 +214,20 @@ pub fn render_summary(summary: &SummaryReport) -> String {
     }
 
     out.push(String::new());
+    out.push(style("Finding Severity", "1"));
+    if summary.by_severity.is_empty() {
+        out.push("  none".to_string());
+    } else {
+        for item in &summary.by_severity {
+            out.push(format!(
+                "  {:<16} {}",
+                render_severity(&item.severity),
+                item.count
+            ));
+        }
+    }
+
+    out.push(String::new());
     out.push(style("Highest Risk", "1"));
     if summary.highest_risk.is_empty() {
         out.push("  none".to_string());
